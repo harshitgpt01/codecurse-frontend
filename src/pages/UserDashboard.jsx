@@ -340,46 +340,57 @@ export default function UserDashboard() {
                     <span style={{ fontSize:'.7rem', color:'var(--muted)', fontWeight:400 }}>(last 6 months)</span>
                   </div>
 
-                  <div style={{ overflowX:'auto' }}>
-                    {/* Month labels row — each label sits above its week column */}
-                    <div style={{ display:'flex', gap:3, marginBottom:4, marginLeft:22 }}>
-                      {monthLabels.map((label, i) => (
-                        <div key={i} style={{ width:13, flexShrink:0, fontSize:'.58rem', color: label ? '#8b87a8' : 'transparent', whiteSpace:'nowrap', overflow:'visible' }}>
-                          {label || '.'}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Day labels + grid */}
+                  <div style={{ overflowX:'auto', marginTop:14 }}>
                     <div style={{ display:'flex', gap:0 }}>
-                      {/* Day labels */}
+
+                      {/* Day labels on left */}
                       <div style={{ display:'flex', flexDirection:'column', gap:3, marginRight:6, paddingTop:1 }}>
-                        {['S','M','T','W','T','F','S'].map((d, i) => (
-                          <div key={i} style={{ width:14, height:13, fontSize:'.52rem', color: i===0||i===6 ? 'var(--dim)' : 'var(--muted)', lineHeight:'13px', textAlign:'center' }}>
-                            {i%2===1 ? d : ''}
+                        {['','M','','W','','F',''].map((d, i) => (
+                          <div key={i} style={{ width:14, height:13, fontSize:'.55rem', color:'var(--muted)', lineHeight:'13px', textAlign:'right' }}>
+                            {d}
                           </div>
                         ))}
                       </div>
 
-                      {/* Week columns */}
-                      <div style={{ display:'flex', gap:3 }}>
-                        {weeks.map((week, wi) => (
-                          <div key={wi} style={{ display:'flex', flexDirection:'column', gap:3 }}>
-                            {week.map((cell, di) => (
-                              <div
-                                key={di}
-                                className={`db-cal-cell level-${cell.level}`}
-                                style={{ width:13, height:13, opacity: cell.isFuture ? 0.1 : 1 }}
-                                title={cell.isFuture ? '' : `${cell.date}: ${cell.count} submission${cell.count!==1?'s':''}`}
-                              />
-                            ))}
-                          </div>
-                        ))}
+                      {/* Grid + month labels */}
+                      <div style={{ display:'flex', flexDirection:'column', gap:0 }}>
+
+                        {/* Week columns (grid) */}
+                        <div style={{ display:'flex', gap:3 }}>
+                          {weeks.map((week, wi) => (
+                            <div key={wi} style={{ display:'flex', flexDirection:'column', gap:3 }}>
+                              {week.map((cell, di) => (
+                                <div
+                                  key={di}
+                                  className={`db-cal-cell level-${cell.level}`}
+                                  style={{ width:13, height:13, opacity: cell.isFuture ? 0.08 : 1 }}
+                                  title={cell.isFuture ? '' : `${cell.date}: ${cell.count} submission${cell.count!==1?'s':''}`}
+                                />
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Month labels below grid */}
+                        <div style={{ display:'flex', gap:3, marginTop:6 }}>
+                          {monthLabels.map((label, i) => (
+                            <div key={i} style={{
+                              width:13, flexShrink:0,
+                              fontSize:'.6rem',
+                              color: label ? '#8b87a8' : 'transparent',
+                              whiteSpace:'nowrap',
+                              overflow:'visible',
+                              userSelect:'none',
+                            }}>
+                              {label || '·'}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
                     {/* Legend */}
-                    <div className="db-cal-legend" style={{ marginTop:10 }}>
+                    <div className="db-cal-legend" style={{ marginTop:12 }}>
                       <span>Less</span>
                       {[0,1,2,3,4].map(l => (
                         <div key={l} className={`db-cal-cell level-${l}`} style={{ width:11, height:11, flexShrink:0 }} />
