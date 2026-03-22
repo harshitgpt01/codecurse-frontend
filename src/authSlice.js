@@ -5,8 +5,8 @@ export const registerUser = createAsyncThunk(
   'auth/register',
   async (userData, { rejectWithValue }) => {
     try {
-      // ✅ Changed from /user/register to /user/verify-otp-register
-      const response = await axiosClient.post('/user/verify-otp-register', userData);
+      // ✅ Back to original /user/register (no OTP)
+      const response = await axiosClient.post('/user/register', userData);
       return response.data.user;
     } catch (error) {
       return rejectWithValue(error);
@@ -64,7 +64,6 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Register
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -81,7 +80,6 @@ const authSlice = createSlice({
         state.user = null;
       })
 
-      // Login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -98,7 +96,6 @@ const authSlice = createSlice({
         state.user = null;
       })
 
-      // Check Auth
       .addCase(checkAuth.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -108,14 +105,13 @@ const authSlice = createSlice({
         state.isAuthenticated = !!action.payload;
         state.user = action.payload;
       })
-      .addCase(checkAuth.rejected, (state, action) => {
+      .addCase(checkAuth.rejected, (state) => {
         state.loading = false;
-        state.error = null; // don't show error on checkAuth fail
+        state.error = null;
         state.isAuthenticated = false;
         state.user = null;
       })
 
-      // Logout
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
         state.error = null;
