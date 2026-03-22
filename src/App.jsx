@@ -12,6 +12,7 @@ import AdminDelete from "./components/AdminDelete";
 import AdminVideo from "./components/AdminVideo";
 import AdminUpload from "./components/AdminUpload";
 import CodeCurse from "./pages/Landing";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -88,6 +89,11 @@ function App() {
       />
 
       <Route path="/problem/:problemId" element={<ProblemPage />} />
+
+      <Route
+  path="/dashboard"
+  element={isAuthenticated ? <UserDashboard /> : <Navigate to="/" replace />}
+/>
     </Routes>
   );
 }
