@@ -13,7 +13,7 @@ import AdminVideo from "./components/AdminVideo";
 import AdminUpload from "./components/AdminUpload";
 import CodeCurse from "./pages/Landing";
 import UserDashboard from "./pages/UserDashboard";
-import ComplexityAnalyser from "./pages/ComplexityAnalyser";
+import ComplexityAnalyser from "./pages/ComlexityAnalyser";
 
 
 function App() {
