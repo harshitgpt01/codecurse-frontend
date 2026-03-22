@@ -144,7 +144,6 @@ const styles = `
 
 // ── ACTIVITY CALENDAR DATA ─────────────────────────────────
 function generateActivityData(submissions) {
-  // Build map of date -> submission count
   const map = {};
   submissions.forEach(s => {
     if (!s.createdAt) return;
@@ -155,7 +154,6 @@ function generateActivityData(submissions) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Start from ~26 weeks ago, aligned to Sunday
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - 181);
   startDate.setDate(startDate.getDate() - startDate.getDay()); // align to Sunday
@@ -163,20 +161,20 @@ function generateActivityData(submissions) {
   const weeks = [];
   const monthLabels = [];
   let current = new Date(startDate);
-  let weekIdx = 0;
+  let lastMonth = -1;
 
   while (current <= today) {
     const week = [];
+    const firstDay = new Date(current);
 
-    // Month label for this week column
-    const firstDayOfWeek = new Date(current);
-    const prevWeek = new Date(firstDayOfWeek);
-    prevWeek.setDate(firstDayOfWeek.getDate() - 7);
-    const showMonth = weekIdx === 0 || firstDayOfWeek.getMonth() !== prevWeek.getMonth();
-    monthLabels.push(showMonth
-      ? firstDayOfWeek.toLocaleString('default', { month: 'short' })
-      : ''
-    );
+    // Show month label only when month changes
+    const thisMonth = firstDay.getMonth();
+    if (thisMonth !== lastMonth) {
+      monthLabels.push(firstDay.toLocaleString('default', { month: 'short' }));
+      lastMonth = thisMonth;
+    } else {
+      monthLabels.push('');
+    }
 
     for (let d = 0; d < 7; d++) {
       const key = current.toISOString().split('T')[0];
@@ -192,9 +190,7 @@ function generateActivityData(submissions) {
       week.push({ date: key, count, level, isFuture });
       current.setDate(current.getDate() + 1);
     }
-
     weeks.push(week);
-    weekIdx++;
   }
 
   return { weeks, monthLabels };
@@ -345,11 +341,11 @@ export default function UserDashboard() {
                   </div>
 
                   <div style={{ overflowX:'auto' }}>
-                    {/* Month labels row */}
+                    {/* Month labels row — each label sits above its week column */}
                     <div style={{ display:'flex', gap:3, marginBottom:4, marginLeft:22 }}>
                       {monthLabels.map((label, i) => (
-                        <div key={i} style={{ width:13, fontSize:'.55rem', color:'var(--muted)', flexShrink:0, overflow:'visible', whiteSpace:'nowrap' }}>
-                          {label}
+                        <div key={i} style={{ width:13, flexShrink:0, fontSize:'.58rem', color: label ? '#8b87a8' : 'transparent', whiteSpace:'nowrap', overflow:'visible' }}>
+                          {label || '.'}
                         </div>
                       ))}
                     </div>
