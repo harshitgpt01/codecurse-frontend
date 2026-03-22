@@ -497,6 +497,9 @@ export default function Homepage() {
                 }
               </NavLink>
             ))
+          <NavLink to="/analyser" className="hp-dropdown-item" onClick={() => setDropdownOpen(false)}>
+  <span>⚡</span> Complexity Analyser
+</NavLink>
           )}
         </div>
       </div>

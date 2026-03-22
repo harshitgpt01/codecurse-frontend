@@ -13,6 +13,8 @@ import AdminVideo from "./components/AdminVideo";
 import AdminUpload from "./components/AdminUpload";
 import CodeCurse from "./pages/Landing";
 import UserDashboard from "./pages/UserDashboard";
+import ComplexityAnalyser from "./pages/ComplexityAnalyser";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -94,6 +96,12 @@ function App() {
   path="/dashboard"
   element={isAuthenticated ? <UserDashboard /> : <Navigate to="/" replace />}
 />
+
+<Route
+  path="/analyser"
+  element={isAuthenticated ? <ComplexityAnalyser /> : <Navigate to="/" replace />}
+/>
+
     </Routes>
   );
 }
