@@ -95,7 +95,7 @@ const CODES = {
 
 const FEATURES = [
   { icon: "🤖", name: "AI-Powered Guidance", desc: "Instant feedback with intelligent suggestions for optimization, alternative approaches, and complexity analysis.", tag: "Smart Hints" },
-  { icon: "⚡", name: "Multi-Language Support", desc: "Practice in Python, JavaScript, Java, and C++ with full syntax highlighting and language-specific optimizations.", tag: "4 Languages" },
+  { icon: "⚡", name: "Multi-Language Support", desc: "Practice in,JavaScript, Java, and C++ with full syntax highlighting and language-specific optimizations.", tag: "4 Languages" },
   { icon: "📊", name: "Complexity Analyzer", desc: "Visualize time & space complexity instantly. Understand Big-O intuitively with animated breakdowns.", tag: "Big-O Visual" },
   { icon: "🗺️", name: "Adaptive Learning Path", desc: "A personalized problem roadmap that adapts to your strengths — so you level up faster and stay motivated.", tag: "Personalized" },
 ];
@@ -428,7 +428,7 @@ export default function CodeCurse() {
 
         {/* ── COUNTER STRIP ── */}
         <div style={{ position: "relative", zIndex: 10, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "rgba(255,255,255,.06)", borderTop: "1px solid rgba(255,255,255,.06)", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
-          {[{ target: 500, suffix: "+", label: "Cursed\nProblems" }, { target: 4, suffix: "", label: "Languages\nSupported" }, { target: 98, suffix: "%", label: "AI Hint\nAccuracy" }].map((c, i) => (
+          {[{ target: 10,  suffix: "x", label: "Faster\nLearning" }, { target: 4, suffix: "", label: "Languages\nSupported" }, { target: 98, suffix: "%", label: "AI Hint\nAccuracy" }].map((c, i) => (
             <div key={i} data-hover style={{ background: "#03020a", padding: "28px 16px", textAlign: "center", position: "relative", overflow: "hidden", cursor: "default" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#ff2d2d,#ff6a1a)" }} />
               <AnimCounter target={c.target} suffix={c.suffix} />
