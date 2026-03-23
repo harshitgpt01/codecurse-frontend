@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../authSlice';
@@ -18,7 +18,6 @@ const styles = `
   .ca-root { min-height:100vh; background:var(--bg); color:var(--text); font-family:var(--mono); position:relative; }
   .ca-root::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:180px; }
 
-  /* NAV */
   .ca-nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 36px; height:64px; background:rgba(3,2,10,.92); border-bottom:1px solid var(--border); backdrop-filter:blur(24px); animation:ca-slideDown .6s cubic-bezier(.16,1,.3,1) both; }
   @keyframes ca-slideDown { from{transform:translateY(-100%);opacity:0} to{transform:none;opacity:1} }
   .ca-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
@@ -36,7 +35,6 @@ const styles = `
   .ca-user-btn:hover { border-color:rgba(255,45,45,.3); }
   .ca-avatar { width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--red),var(--orange)); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; color:#fff; }
 
-  /* HERO */
   .ca-hero { position:relative; overflow:hidden; padding:40px 36px 36px; border-bottom:1px solid var(--border); }
   .ca-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,45,45,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,45,45,.04) 1px,transparent 1px); background-size:36px 36px; animation:ca-grid 24s linear infinite; mask-image:radial-gradient(ellipse 80% 100% at 20% 50%,black,transparent); }
   @keyframes ca-grid { from{background-position:0 0} to{background-position:36px 36px} }
@@ -50,15 +48,11 @@ const styles = `
   .ca-hero-title em { background:linear-gradient(90deg,var(--red),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-style:normal; }
   .ca-hero-sub { font-size:.78rem; color:var(--muted); }
 
-  /* MAIN */
   .ca-main { max-width:960px; margin:0 auto; padding:32px 36px 80px; position:relative; z-index:1; }
-
-  /* EXAMPLES */
   .ca-examples-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
   .ca-example-chip { padding:5px 14px; border-radius:8px; font-size:.68rem; background:var(--card); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-family:var(--mono); transition:all .2s; }
   .ca-example-chip:hover { color:var(--text); border-color:rgba(255,45,45,.3); background:rgba(255,45,45,.06); }
 
-  /* EDITOR AREA */
   .ca-editor-wrap { position:relative; margin-bottom:16px; }
   .ca-editor-header { display:flex; align-items:center; justify-content:space-between; background:#070614; border:1px solid var(--border); border-bottom:none; border-radius:12px 12px 0 0; padding:10px 16px; }
   .ca-editor-lang-label { font-size:.68rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
@@ -68,7 +62,6 @@ const styles = `
   .ca-textarea:focus { border-color:rgba(255,45,45,.3); }
   .ca-textarea::placeholder { color:var(--dim); }
 
-  /* CONTROLS */
   .ca-controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:28px; }
   .ca-select { padding:10px 36px 10px 14px; background:var(--card); border:1px solid var(--border); border-radius:9px; color:var(--text); font-family:var(--mono); font-size:.75rem; outline:none; cursor:pointer; appearance:none; transition:all .2s; }
   .ca-select:focus { border-color:rgba(255,45,45,.3); }
@@ -82,11 +75,9 @@ const styles = `
   .ca-btn-clear { padding:11px 20px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:9px; color:var(--muted); font-family:var(--mono); font-size:.78rem; cursor:pointer; transition:all .2s; }
   .ca-btn-clear:hover { color:var(--text); border-color:rgba(255,255,255,.15); }
 
-  /* RESULT */
   .ca-result { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; animation:ca-resultIn .5s cubic-bezier(.16,1,.3,1) both; }
   @keyframes ca-resultIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
 
-  /* COMPLEXITY BADGES */
   .ca-badges-row { display:flex; gap:10px; flex-wrap:wrap; padding:20px 22px; border-bottom:1px solid var(--border); background:rgba(255,255,255,.01); }
   .ca-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:10px; font-size:.78rem; font-weight:700; border:1px solid; font-family:var(--mono); }
   .ca-badge-time   { background:rgba(96,165,250,.08);  color:#60a5fa; border-color:rgba(96,165,250,.25); }
@@ -95,14 +86,11 @@ const styles = `
   .ca-badge-worst  { background:rgba(248,113,113,.08); color:#f87171; border-color:rgba(248,113,113,.25); }
 
   .ca-result-body { padding:24px 22px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-  .ca-result-section { }
   .ca-result-section.full { grid-column:1/-1; }
   .ca-sec-title { font-size:.6rem; color:var(--muted); letter-spacing:2.5px; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
   .ca-sec-title::before { content:'//'; color:var(--red); }
-
   .ca-explanation { font-size:.82rem; color:var(--text); line-height:1.8; font-family:var(--mono); }
 
-  /* LOOP LIST */
   .ca-loop-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
   .ca-loop-item { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; background:var(--card2); border:1px solid var(--border); border-radius:9px; font-size:.78rem; transition:border-color .2s; }
   .ca-loop-item:hover { border-color:rgba(255,45,45,.2); }
@@ -116,28 +104,21 @@ const styles = `
   .ca-loop-desc { flex:1; color:var(--text); }
   .ca-loop-cplx { color:var(--muted); font-size:.72rem; white-space:nowrap; }
 
-  /* OPTIMIZATION TIP */
   .ca-tip { padding:14px 16px; background:rgba(124,58,237,.06); border:1px solid rgba(124,58,237,.2); border-radius:10px; font-size:.8rem; color:var(--text); line-height:1.8; border-left:3px solid var(--purple); }
 
-  /* BIG O CHART */
   .ca-chart-wrap { margin-top:4px; }
   .ca-chart-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
   .ca-chart-label { font-size:.68rem; color:var(--muted); width:60px; text-align:right; flex-shrink:0; }
   .ca-chart-bar-bg { flex:1; height:8px; background:rgba(255,255,255,.05); border-radius:4px; overflow:hidden; }
   .ca-chart-bar-fill { height:100%; border-radius:4px; transition:width 1s cubic-bezier(.16,1,.3,1); }
-  .ca-chart-current { border-right:2px solid var(--red); }
 
-  /* LOADING */
   .ca-loading { display:flex; align-items:center; justify-content:center; gap:14px; padding:50px; color:var(--muted); font-size:.78rem; flex-direction:column; }
   .ca-loading-spinner { width:32px; height:32px; border:2px solid rgba(255,45,45,.15); border-top-color:var(--red); border-radius:50%; animation:ca-spin .7s linear infinite; }
   @keyframes ca-spin { to{transform:rotate(360deg)} }
   .ca-loading-text { color:var(--muted); font-size:.75rem; animation:ca-blink2 1.5s ease-in-out infinite; }
   @keyframes ca-blink2 { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-  /* ERROR */
   .ca-error { padding:20px 22px; background:rgba(255,45,45,.06); border-radius:14px; border:1px solid rgba(255,45,45,.2); font-size:.8rem; color:#ff8a8a; }
-
-  /* EMPTY STATE */
   .ca-empty { text-align:center; padding:60px 20px; color:var(--muted); }
   .ca-empty-icon { font-size:3rem; opacity:.15; margin-bottom:16px; }
   .ca-empty-text { font-size:.8rem; }
@@ -159,35 +140,36 @@ const EXAMPLES = {
 };
 
 const BIG_O_LEVELS = [
-  { label: 'O(1)',      pct: 5,   color: '#4ade80', cls: 'ca-dot-constant' },
-  { label: 'O(log n)',  pct: 15,  color: '#4ade80', cls: 'ca-dot-log'      },
-  { label: 'O(n)',      pct: 35,  color: '#60a5fa', cls: 'ca-dot-linear'   },
-  { label: 'O(n log n)',pct: 55,  color: '#fbbf24', cls: 'ca-dot-nlogn'    },
-  { label: 'O(n²)',     pct: 75,  color: '#f87171', cls: 'ca-dot-quad'     },
-  { label: 'O(2ⁿ)',     pct: 92,  color: '#ff2d2d', cls: 'ca-dot-exp'      },
-  { label: 'O(n!)',     pct: 100, color: '#ff2d2d', cls: 'ca-dot-exp'      },
+  { label: 'O(1)',       pct: 5,   color: '#4ade80' },
+  { label: 'O(log n)',   pct: 15,  color: '#4ade80' },
+  { label: 'O(n)',       pct: 35,  color: '#60a5fa' },
+  { label: 'O(n log n)', pct: 55,  color: '#fbbf24' },
+  { label: 'O(n²)',      pct: 75,  color: '#f87171' },
+  { label: 'O(2ⁿ)',      pct: 92,  color: '#ff2d2d' },
+  { label: 'O(n!)',      pct: 100, color: '#ff2d2d' },
 ];
 
 function getDotClass(complexity = '') {
   const c = complexity.toLowerCase();
-  if (c.includes('1)'))        return 'ca-dot-constant';
-  if (c.includes('log'))       return 'ca-dot-log';
-  if (c.includes('n log') || c.includes('n²') === false && c.includes('n)')) return 'ca-dot-linear';
+  if (c.includes('1)'))                    return 'ca-dot-constant';
+  if (c.includes('log') && c.includes('n')) return 'ca-dot-nlogn';
+  if (c.includes('log'))                   return 'ca-dot-log';
   if (c.includes('n²') || c.includes('n^2')) return 'ca-dot-quad';
   if (c.includes('2^') || c.includes('2ⁿ')) return 'ca-dot-exp';
-  if (c.includes('n!'))        return 'ca-dot-exp';
+  if (c.includes('n!'))                    return 'ca-dot-exp';
+  if (c.includes('n)') || c.includes('n,')) return 'ca-dot-linear';
   return 'ca-dot-linear';
 }
 
 function getBarPct(complexity = '') {
   const c = complexity.toLowerCase();
-  if (c.includes('n!'))   return 100;
-  if (c.includes('2^') || c.includes('2ⁿ')) return 92;
+  if (c.includes('n!'))                      return 100;
+  if (c.includes('2^') || c.includes('2ⁿ'))  return 92;
   if (c.includes('n²') || c.includes('n^2')) return 75;
-  if (c.includes('n log')) return 55;
-  if (c.includes('n)'))   return 35;
-  if (c.includes('log'))  return 15;
-  if (c.includes('1)'))   return 5;
+  if (c.includes('n log'))                   return 55;
+  if (c.includes('n)') || c.includes('n,'))  return 35;
+  if (c.includes('log'))                     return 15;
+  if (c.includes('1)'))                      return 5;
   return 35;
 }
 
@@ -196,61 +178,26 @@ export default function ComplexityAnalyser() {
   const navigate = useNavigate();
   const { user } = useSelector(state => state.auth);
 
-  const [code,     setCode]     = useState('');
-  const [lang,     setLang]     = useState('javascript');
-  const [loading,  setLoading]  = useState(false);
-  const [result,   setResult]   = useState(null);
-  const [error,    setError]    = useState('');
+  const [code,    setCode]    = useState('');
+  const [lang,    setLang]    = useState('javascript');
+  const [loading, setLoading] = useState(false);
+  const [result,  setResult]  = useState(null);
+  const [error,   setError]   = useState('');
 
   const handleLogout = () => { dispatch(logoutUser()); navigate('/'); };
 
+  // ✅ FIXED: calls backend instead of Anthropic API directly
   const analyseCode = async () => {
     if (!code.trim()) return;
     setLoading(true); setError(''); setResult(null);
-
-    const prompt = `Analyse the time and space complexity of this ${lang} code.
-Respond ONLY with a valid JSON object — no markdown, no backticks, nothing outside the JSON.
-
-{
-  "timeComplexity": "O(n²)",
-  "spaceComplexity": "O(n)",
-  "bestCase": "O(n)",
-  "worstCase": "O(n²)",
-  "explanation": "2-3 sentences explaining WHY these complexities",
-  "loops": [
-    { "description": "Outer loop iterates n times", "complexity": "O(n)" },
-    { "description": "Inner loop iterates n-i times", "complexity": "O(n)" }
-  ],
-  "optimizationTip": "One concrete suggestion to reduce complexity"
-}
-
-Code:
-\`\`\`${lang}
-${code}
-\`\`\``;
-
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      const data = await res.json();
-      const raw = (data.content || []).map(b => b.text || '').join('');
-      const clean = raw.replace(/```json|```/g, '').trim();
-      setResult(JSON.parse(clean));
+      const { data } = await axiosClient.post('/ai/analyse-complexity', { code, language: lang });
+      setResult(data);
     } catch (e) {
-      setError('Analysis failed. Please check your code and try again.');
+      setError(e?.response?.data?.message || 'Analysis failed. Please check your code and try again.');
     }
     setLoading(false);
   };
-
-  const timePct   = result ? getBarPct(result.timeComplexity)  : 0;
-  const spacePct  = result ? getBarPct(result.spaceComplexity) : 0;
 
   return (
     <>
@@ -263,13 +210,11 @@ ${code}
             <div className="ca-logo-skull">☠</div>
             <span className="ca-logo-text">Code<em>Curse</em></span>
           </NavLink>
-
           <div className="ca-nav-center">
-            <NavLink to="/home"       className="ca-nav-tab">// Problems</NavLink>
-            <NavLink to="/analyser"   className="ca-nav-tab active">// Analyser</NavLink>
-            <NavLink to="/dashboard"  className="ca-nav-tab">// Dashboard</NavLink>
+            <NavLink to="/home"      className="ca-nav-tab">// Problems</NavLink>
+            <NavLink to="/analyser"  className="ca-nav-tab active">// Analyser</NavLink>
+            <NavLink to="/dashboard" className="ca-nav-tab">// Dashboard</NavLink>
           </div>
-
           <div className="ca-nav-right">
             <button className="ca-user-btn" onClick={handleLogout}>
               <div className="ca-avatar">{user?.firstName?.[0]?.toUpperCase() || '?'}</div>
@@ -283,29 +228,25 @@ ${code}
           <div className="ca-hero-orb1" /><div className="ca-hero-orb2" />
           <div className="ca-hero-inner">
             <div className="ca-hero-eyebrow">// AI-Powered Tool</div>
-            <div className="ca-hero-title">
-              Complexity <em>Analyser</em>
-            </div>
-            <div className="ca-hero-sub">
-              Paste your code — get instant time & space complexity with AI explanation
-            </div>
+            <div className="ca-hero-title">Complexity <em>Analyser</em></div>
+            <div className="ca-hero-sub">Paste your code — get instant time & space complexity with AI explanation</div>
           </div>
         </div>
 
         {/* MAIN */}
         <div className="ca-main">
 
-          {/* Example chips */}
+          {/* Examples */}
           <div className="ca-examples-row">
             {Object.keys(EXAMPLES).map(name => (
               <button key={name} className="ca-example-chip"
-                onClick={() => { setCode(EXAMPLES[name]); setLang('javascript'); setResult(null); }}>
+                onClick={() => { setCode(EXAMPLES[name]); setLang('javascript'); setResult(null); setError(''); }}>
                 {name}
               </button>
             ))}
           </div>
 
-          {/* Code editor */}
+          {/* Editor */}
           <div className="ca-editor-wrap">
             <div className="ca-editor-header">
               <span className="ca-editor-lang-label">{lang}</span>
@@ -346,7 +287,7 @@ ${code}
             </button>
           </div>
 
-          {/* Result area */}
+          {/* Loading */}
           {loading && (
             <div className="ca-result">
               <div className="ca-loading">
@@ -356,12 +297,12 @@ ${code}
             </div>
           )}
 
+          {/* Error */}
           {error && <div className="ca-error">⚠ {error}</div>}
 
+          {/* Result */}
           {result && !loading && (
             <div className="ca-result">
-
-              {/* Badges */}
               <div className="ca-badges-row">
                 <span className="ca-badge ca-badge-time">⏱ Time: {result.timeComplexity}</span>
                 <span className="ca-badge ca-badge-space">▣ Space: {result.spaceComplexity}</span>
@@ -393,28 +334,26 @@ ${code}
                   </div>
                 )}
 
-                {/* Big O scale */}
+                {/* Big O Scale */}
                 <div className="ca-result-section">
                   <div className="ca-sec-title">Big O Scale</div>
                   <div className="ca-chart-wrap">
                     {BIG_O_LEVELS.map((level, i) => {
-                      const isTimeCurrent = result.timeComplexity?.includes(level.label.replace('O(','').replace(')','')) || result.timeComplexity === level.label;
+                      const isActive = result.timeComplexity === level.label ||
+                        result.timeComplexity?.includes(level.label.replace('O(','').replace(')',''));
                       return (
                         <div key={i} className="ca-chart-bar-row">
-                          <span className="ca-chart-label" style={{ color: isTimeCurrent ? '#ede8ff' : '' }}>
+                          <span className="ca-chart-label" style={{ color: isActive ? '#ede8ff' : '' }}>
                             {level.label}
                           </span>
                           <div className="ca-chart-bar-bg">
-                            <div
-                              className="ca-chart-bar-fill"
-                              style={{
-                                width: level.pct + '%',
-                                background: isTimeCurrent
-                                  ? `linear-gradient(90deg,${level.color},${level.color}88)`
-                                  : 'rgba(255,255,255,.08)',
-                                boxShadow: isTimeCurrent ? `0 0 8px ${level.color}44` : 'none',
-                              }}
-                            />
+                            <div className="ca-chart-bar-fill" style={{
+                              width: level.pct + '%',
+                              background: isActive
+                                ? `linear-gradient(90deg,${level.color},${level.color}88)`
+                                : 'rgba(255,255,255,.08)',
+                              boxShadow: isActive ? `0 0 8px ${level.color}44` : 'none',
+                            }} />
                           </div>
                         </div>
                       );
@@ -433,6 +372,7 @@ ${code}
             </div>
           )}
 
+          {/* Empty state */}
           {!loading && !result && !error && (
             <div className="ca-empty">
               <div className="ca-empty-icon">⚡</div>
