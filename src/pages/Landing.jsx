@@ -480,7 +480,9 @@ export default function CodeCurse() {
 
           {[
             { title: "Quick Links", links: [{ label: "Sign In", to: "/login" }, { label: "Get Started", to: "/signup" }, { label: "Problem Set", to: "/home" }] },
-            { title: "Resources",   links: [{ label: "GitHub", to: "https://github.com/harshitgpt01" }, { label: "Documentation", to: "#" }, { label: "Blog", to: "#" }] },
+            { title: "Resources",   links: [{ label: 'GitHub',    href: 'https://github.com/harshitgpt01' },
+    { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/harshit-gupta-687ba1325/?trk=public-profile-join-page' },
+    { label: 'Portfolio', href: 'https://yourportfolio.com' }] },
           ].map((group) => (
             <div key={group.title} style={{ marginBottom: 28 }}>
               <p style={{ fontSize: ".6rem", letterSpacing: "2.5px", color: "#ff2d2d", textTransform: "uppercase", marginBottom: 14 }}>{group.title}</p>
@@ -499,20 +501,15 @@ export default function CodeCurse() {
           ))}
 
           <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", paddingTop: 24, display: "flex", flexDirection: "column", gap: 16 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-  {[
-    { label: 'GitHub',    href: 'https://github.com/harshitgpt01' },
-    { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/harshit-gupta-687ba1325/?trk=public-profile-join-page' },
-    { label: 'Portfolio', href: '#' },
-  ].map((link) => (
-    <a key={link.label} href={link.href} target="_blank" rel="noreferrer"
-      style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '.78rem', color: '#5a5472', textDecoration: 'none', transition: 'all .2s' }}
-      onMouseEnter={e => { e.currentTarget.style.color = '#ff2d2d'; e.currentTarget.style.transform = 'translateX(4px)'; }}
-      onMouseLeave={e => { e.currentTarget.style.color = '#5a5472'; e.currentTarget.style.transform = 'none'; }}>
-      <span style={{ color: '#ff2d2d' }}>→</span> {link.label}
-    </a>
-  ))}
-</div>
+            <div style={{ display: "flex", gap: 10 }}>
+              {["GH", "in", "@"].map((s) => (
+                <a key={s} href="#" data-hover style={{ width: 36, height: 36, borderRadius: 8, border: "1px solid rgba(255,255,255,.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: ".85rem", color: "#5a5472", textDecoration: "none", transition: "all .2s" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#ff2d2d"; e.currentTarget.style.color = "#ff2d2d"; e.currentTarget.style.background = "rgba(255,45,45,.06)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,.06)"; e.currentTarget.style.color = "#5a5472"; e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "none"; }}>
+                  {s}
+                </a>
+              ))}
+            </div>
             <span style={{ fontSize: ".7rem", color: "#5a5472" }}>© 2026 CodeCurse. Built with ❤️ by Harshit.</span>
           </div>
         </footer>
