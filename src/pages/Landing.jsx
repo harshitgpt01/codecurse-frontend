@@ -480,7 +480,7 @@ export default function CodeCurse() {
 
           {[
             { title: "Quick Links", links: [{ label: "Sign In", to: "/login" }, { label: "Get Started", to: "/signup" }, { label: "Problem Set", to: "/home" }] },
-            { title: "Resources",   links: [{ label: "GitHub", to: "#" }, { label: "Documentation", to: "#" }, { label: "Blog", to: "#" }] },
+            { title: "Resources",   links: [{ label: "GitHub", to: "https://github.com/harshitgpt01" }, { label: "Documentation", to: "#" }, { label: "Blog", to: "#" }] },
           ].map((group) => (
             <div key={group.title} style={{ marginBottom: 28 }}>
               <p style={{ fontSize: ".6rem", letterSpacing: "2.5px", color: "#ff2d2d", textTransform: "uppercase", marginBottom: 14 }}>{group.title}</p>
