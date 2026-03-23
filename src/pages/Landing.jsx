@@ -428,7 +428,7 @@ export default function CodeCurse() {
 
         {/* ── COUNTER STRIP ── */}
         <div style={{ position: "relative", zIndex: 10, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "rgba(255,255,255,.06)", borderTop: "1px solid rgba(255,255,255,.06)", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
-          {[{ target: 10,  suffix: "x", label: "Faster\nLearning" }, { target: 4, suffix: "", label: "Languages\nSupported" }, { target: 98, suffix: "%", label: "AI Hint\nAccuracy" }].map((c, i) => (
+          {[{ target: 10,  suffix: "x", label: "Faster\nLearning" }, { target: 3, suffix: "", label: "Languages\nSupported" }, { target: 98, suffix: "%", label: "AI Hint\nAccuracy" }].map((c, i) => (
             <div key={i} data-hover style={{ background: "#03020a", padding: "28px 16px", textAlign: "center", position: "relative", overflow: "hidden", cursor: "default" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#ff2d2d,#ff6a1a)" }} />
               <AnimCounter target={c.target} suffix={c.suffix} />
