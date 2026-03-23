@@ -416,38 +416,52 @@ const ProblemPage = () => {
                   </div>
 
                   {/* Test case cards */}
-                  <div className="space-y-2">
-                    {runResult.testCases?.map((tc, i) => {
-                      const passed = tc.status_id === 3;
-                      return (
-                        <div
-                          key={i}
-                          className={`rounded-lg border overflow-hidden
-                            ${passed ? 'border-success/20 bg-success/5' : 'border-error/20 bg-error/5'}`}
-                        >
-                          <div className={`flex items-center gap-2 px-3 py-1.5 border-b text-xs font-mono font-bold
-                            ${passed ? 'border-success/20 text-success' : 'border-error/20 text-error'}`}
-                          >
-                            <span>{passed ? '✓' : '✗'}</span>
-                            <span>Case {i + 1}</span>
-                            <span className="ml-auto font-normal opacity-60">{passed ? 'Accepted' : 'Wrong Answer'}</span>
-                          </div>
-                          <div className="p-3 grid grid-cols-3 gap-3 text-xs font-mono">
-                            {[
-                              { label: 'Input', val: tc.stdin },
-                              { label: 'Expected', val: tc.expected_output },
-                              { label: 'Got', val: tc.stdout },
-                            ].map(({ label, val }) => (
-                              <div key={label}>
-                                <div className="text-base-content/40 uppercase tracking-widest mb-1">{label}</div>
-                                <div className="bg-base-300/50 px-2 py-1.5 rounded text-base-content/80 break-all">{val || '—'}</div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {/* Test case cards */}
+<div className="space-y-2">
+  {runResult.testCases?.map((tc, i) => {
+    const passed = tc.status_id === 3;
+    const visibleCase = problem?.visibleTestCases?.[i]; // ✅ get input/output from problem
+    return (
+      <div
+        key={i}
+        className={`rounded-lg border overflow-hidden
+          ${passed ? 'border-success/20 bg-success/5' : 'border-error/20 bg-error/5'}`}
+      >
+        <div className={`flex items-center gap-2 px-3 py-1.5 border-b text-xs font-mono font-bold
+          ${passed ? 'border-success/20 text-success' : 'border-error/20 text-error'}`}
+        >
+          <span>{passed ? '✓' : '✗'}</span>
+          <span>Case {i + 1}</span>
+          <span className="ml-auto font-normal opacity-60">
+            {passed ? 'Accepted' : tc.status_id === 4 ? 'Wrong Answer' : tc.status?.description || 'Failed'}
+          </span>
+        </div>
+        <div className="p-3 grid grid-cols-3 gap-3 text-xs font-mono">
+          {[
+            { label: 'Input',    val: visibleCase?.input },
+            { label: 'Expected', val: visibleCase?.output },
+            { label: 'Got',      val: tc.stdout?.trim() || tc.stderr?.trim() || '—' },
+          ].map(({ label, val }) => (
+            <div key={label}>
+              <div className="text-base-content/40 uppercase tracking-widest mb-1">{label}</div>
+              <div className="bg-base-300/50 px-2 py-1.5 rounded text-base-content/80 break-all">
+                {val || '—'}
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Show error if any */}
+        {tc.stderr && (
+          <div className="px-3 pb-3">
+            <div className="text-xs text-error/70 font-mono bg-error/5 border border-error/20 rounded p-2">
+              {tc.stderr}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  })}
+</div>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-center gap-3">
