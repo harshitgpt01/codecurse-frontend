@@ -508,7 +508,7 @@ export default function CodeCurse() {
                 </a>
               ))}
             </div>
-            <span style={{ fontSize: ".7rem", color: "#5a5472" }}>© 2026 CodeCurse. Built with ☠ passion.</span>
+            <span style={{ fontSize: ".7rem", color: "#5a5472" }}>© 2026 CodeCurse. Built with ❤️ by Harshit.</span>
           </div>
         </footer>
       </div>
