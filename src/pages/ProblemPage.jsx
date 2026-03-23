@@ -130,12 +130,6 @@ const ProblemPage = () => {
       {/* ── Top Bar ── */}
       <header className="h-11 flex items-center justify-between px-4 bg-base-200 border-b border-base-300 shrink-0">
         <div className="flex items-center gap-3">
-          {/* Traffic lights */}
-          <div className="flex gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-error/70"></span>
-            <span className="w-3 h-3 rounded-full bg-warning/70"></span>
-            <span className="w-3 h-3 rounded-full bg-success/70"></span>
-          </div>
           {problem && (
             <span className="text-sm font-semibold text-base-content/80 font-mono tracking-tight">
               {problem.title}
